@@ -4,15 +4,15 @@
   "workspaces": [
     "packages/*"
   ],
-  "version": "1.3.4-alpha.1",
+  "version": "1.3.7-alpha.1",
   "engines": {
-    "node": ">=12.0.0",
+    "node": ">=20.0.0",
     "yarn": "^1.22.0",
-    "npm": ">=6.0.0"
+    "npm": ">=10.0.0"
   },
   "devDependencies": {
-    "@daisy/jest-env-puppeteer": "1.3.4-alpha.1",
-    "@daisy/jest-puppeteer": "1.3.4-alpha.1",
+    "@daisy/jest-env-puppeteer": "1.3.7-alpha.1",
+    "@daisy/jest-puppeteer": "1.3.7-alpha.1",
     "@jest-runner/electron": "^3.0.1",
     "@kayahr/jest-electron-runner": "^29.15.0",
     "babel-core": "^6.26.3",
@@ -34,7 +34,7 @@
     "strip-ansi": "^6.0.0"
   },
   "resolutions": {
-    "electron": "^34.0.2"
+    "electron": "^34.1.0"
   },
   "scripts": {
     "axe-dev": "cpy \"../axe-core_DAISY/axe.js\" \"node_modules/@daisy/axe-core-for-ace/\" && cpy \"../axe-core_DAISY/axe.min.js\" \"node_modules/@daisy/axe-core-for-ace/\" && cpy \"../axe-core_DAISY/axe.d.ts\" \"node_modules/@daisy/axe-core-for-ace/\" && cpy \"../axe-core_DAISY/locales/*.*\" \"node_modules/@daisy/axe-core-for-ace/locales/\" && cpy \"../axe-core_DAISY/package.json\" \"node_modules/@daisy/axe-core-for-ace/\"",
@@ -56,11 +56,14 @@
     "patchElectronJestRunner": "echo \" \" >> \"./node_modules/@jest-runner/electron/build/electron_process_injected_code.js\" && yarn patchElectronJestRunner3 && yarn patchElectronJestRunner4",
     "patchElectronJestRunner1": "echo \";_electron.app.allowRendererProcessReuse = true;\" >> \"./node_modules/@jest-runner/electron/build/electron_process_injected_code.js\"",
     "patchElectronJestRunner2": "node scripts/replace-in-file.js \"./node_modules/jest-runner/node_modules/jest-runtime/build/index.js\" \"_defineProperty\\(this, '_hasWarnedAboutRequireCacheModification', false\\);\" \"_defineProperty(this, '_hasWarnedAboutRequireCacheModification', true);\"",
+    "patchElectronJestRunner22": "node scripts/replace-in-file.js \"./node_modules/jest-runtime/build/index.js\" \"_defineProperty\\(this, '_hasWarnedAboutRequireCacheModification', false\\);\" \"_defineProperty(this, '_hasWarnedAboutRequireCacheModification', true);\"",
     "patchElectronJestRunner3": "echo \";_electron.protocol.registerSchemesAsPrivileged([{privileges: {allowServiceWorkers: false,bypassCSP: false,corsEnabled: true,secure: true,standard: true,stream: true,supportFetchAPI: true},scheme: 'acehttps'}]);\" >> \"./node_modules/@jest-runner/electron/build/electron_process_injected_code.js\"",
-    "patchElectronJestRunner4": "echo \";_electron.app.commandLine.appendSwitch('disable-gpu');_electron.app.disableHardwareAcceleration();_electron.app.commandLine.appendSwitch('disable-software-rasterizer');\" >> \"./node_modules/@jest-runner/electron/build/electron_process_injected_code.js\"",
+    "___patchElectronJestRunner4": "echo \";_electron.app.commandLine.appendSwitch('disable-gpu');_electron.app.disableHardwareAcceleration();_electron.app.commandLine.appendSwitch('disable-software-rasterizer');\" >> \"./node_modules/@jest-runner/electron/build/electron_process_injected_code.js\"",
+    "patchElectronJestRunner4": "echo \";_electron.app.commandLine.appendSwitch('disable-gpu');\" >> \"./node_modules/@jest-runner/electron/build/electron_process_injected_code.js\"",
     "patchElectronJestRunner_": "echo \" \" >> \"./node_modules/@kayahr/jest-electron-runner/lib/main/electron/electron_process_injected_code.js\" && yarn patchElectronJestRunner3_ && yarn patchElectronJestRunner4_",
     "patchElectronJestRunner3_": "echo \";electron_1.protocol.registerSchemesAsPrivileged([{privileges: {allowServiceWorkers: false,bypassCSP: false,corsEnabled: true,secure: true,standard: true,stream: true,supportFetchAPI: true},scheme: 'acehttps'}]);\" >> \"./node_modules/@kayahr/jest-electron-runner/lib/main/electron/electron_process_injected_code.js\"",
-    "patchElectronJestRunner4_": "echo \";electron_1.app.commandLine.appendSwitch('disable-gpu');electron_1.app.disableHardwareAcceleration();electron_1.app.commandLine.appendSwitch('disable-software-rasterizer');\" >> \"./node_modules/@kayahr/jest-electron-runner/lib/main/electron/electron_process_injected_code.js\"",
+    "___patchElectronJestRunner4_": "echo \";electron_1.app.commandLine.appendSwitch('disable-gpu');electron_1.app.disableHardwareAcceleration();electron_1.app.commandLine.appendSwitch('disable-software-rasterizer');\" >> \"./node_modules/@kayahr/jest-electron-runner/lib/main/electron/electron_process_injected_code.js\"",
+    "patchElectronJestRunner4_": "echo \";electron_1.app.commandLine.appendSwitch('disable-gpu');\" >> \"./node_modules/@kayahr/jest-electron-runner/lib/main/electron/electron_process_injected_code.js\"",
     "test": "cross-env JEST_TESTS=1 jest --config=jest.config-puppeteer.js --runInBand --bail=1 --no-cache",
     "test-cli": "cross-env JEST_TESTS=1 jest --config=jest.config-cli.js --runInBand --bail=1 --no-cache",
     "test-electron": "cross-env JEST_TESTS=1 AXE_ELECTRON_RUNNER=true jest --config=jest.config-electron.js --runInBand --bail=1 --no-cache",
